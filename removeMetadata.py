@@ -13,19 +13,22 @@ else:
 
 
 # Recorro todos los archivos del directorio
-for fn in os.listdir(fpath):
+files = os.listdir(fpath)
+count = 1
+for fn in files:
 
     # Obtengo el nombre completo del archivo
     fname = os.path.join(fpath, fn)
 
     # Si es un archivo .mp3
     if fname.lower().endswith('.mp3'):
-        mp3 = MP3(fname)        
         try:
+            mp3 = MP3(fname)    
             mp3.delete()
             mp3.save()
-            print(f"ID3 tag removed from {fn}")
+            print(f"{count} of {len(files)} - ID3 tag removed from {fn}")
         except:
-            print('no ID3 tag')
+            print(f"{count} of {len(files)} - ID3 tag not found in {fn}")
+        count += 1
 
 print('Done')
